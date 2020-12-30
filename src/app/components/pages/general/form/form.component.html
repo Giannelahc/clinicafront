@@ -1,0 +1,104 @@
+<div class="card">
+    <div class="card-header">
+        <h5>New message</h5>
+    </div>
+    <div class="card-body">
+        <form [formGroup] = "formulario" (ngSubmit) = "guardarDatos()" novalidate>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label >Email</label>
+                    <input type="email" class="form-control" formControlName="email">
+                    <div *ngIf="this.formulario.get('email').errors && formulario.get('email').dirty" >
+                        <p *ngIf="this.formulario.get('email').hasError('required')">{{mensajeRequerido}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" formControlName="password">
+                    <div *ngIf="this.formulario.get('password').errors && formulario.get('password').dirty">
+                        <p *ngIf="this.formulario.get('password').hasError('required')">{{mensajeRequerido}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="nombres">Nombres</label>
+                    <input type="text" class="form-control" formControlName="nombres">
+                    <div *ngIf="this.formulario.get('nombres').errors && formulario.get('nombres').dirty">
+                        <p *ngIf="this.formulario.get('nombres').hasError('required')">{{mensajeRequerido}}</p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="apellidos">Apellidos</label>
+                    <input type="text" class="form-control" formControlName="apellidos">
+                    <div *ngIf="this.formulario.get('apellidos').errors && formulario.get('apellidos').dirty">
+                        <p *ngIf="this.formulario.get('apellidos').hasError('required')">{{mensajeRequerido}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="dni">DNI</label>
+                    <input type="text" class="form-control" formControlName="dni">
+                    <div *ngIf="this.formulario.get('dni').errors && formulario.get('dni').dirty">
+                        <p *ngIf="this.formulario.get('dni').hasError('required')">{{mensajeRequerido}}</p>
+                        <p *ngIf="this.formulario.get('dni').hasError('min-length')">Mínimo 8 dígitos</p>
+                        <p *ngIf="this.formulario.get('dni').hasError('max-length')">Máximo 8 dígitos</p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                    <input type="date" class="form-control" name="today" formControlName="fechaNacimiento">
+                    <div *ngIf="this.formulario.get('fechaNacimiento').errors && formulario.get('fechaNacimiento').dirty">
+                        <p *ngIf="this.formulario.get('fechaNacimiento').hasError('required')">{{mensajeRequerido}}</p>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="form-group">
+                <label for="inputAddress">Address</label>
+                <div class="input-group date" data-provide="datepicker">
+                    <input type="text" class="form-control">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputAddress2">Address 2</label>
+                <input type="text" class="form-control" id="inputAddress2"
+                    placeholder="Apartment, studio, or floor">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">City</label>
+                    <input type="text" class="form-control" id="inputCity">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputState">State</label>
+                    <select id="inputState" class="form-control">
+                        <option selected>Choose...</option>
+                        <option>...</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip">Zip</label>
+                    <input type="text" class="form-control" id="inputZip">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                    <label class="form-check-label" for="gridCheck">
+                        Check me out
+                    </label>
+                </div>
+            </div>-->
+            <hr/>
+            <button type="submit" class="btn btn-primary" style="margin-left: 30rem;" [disabled] = "formulario.invalid">Registrarse</button>
+        </form>
+    </div>
+    <!--<div class="modal-footer">
+        <button type="button" class="btn btn-primary" >Send message</button>
+    </div>-->
+</div>
+
