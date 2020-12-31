@@ -8,7 +8,15 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { FormComponent } from './components/pages/general/form/form.component';
+import { LoginComponent } from './components/pages/general/login/login.component';
+import { RegistroPacienteComponent } from './components/pages/general/registroPaciente/registroPaciente.component';
+
+import { NgxModule} from './ngx.module'
+ 
 import { ReactiveFormsModule } from '@angular/forms';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,7 +24,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     FooterComponent,
     NavbarComponent,
     HomeComponent,
-    FormComponent
+    FormComponent,
+    LoginComponent,
+    RegistroPacienteComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +34,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     AgmCoreModule.forRoot({
       apiKey:''
     }),
-    ReactiveFormsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    NgxModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

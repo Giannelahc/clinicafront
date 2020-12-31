@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-header">
+        <h5>New message</h5>
+    </div>
+    <div class="card-body">
+    
+        <app-form [events]="eventsSubject.asObservable()" (enviarForm)="guardarForm($event)"></app-form>
+        <div class="form-group col-md-6" [formGroup]="pacienteForm">
+            <label for="fechaNacimiento">Fecha de Nacimiento</label>
+            <input type="text" placeholder="Datepicker" class="form-control" placement="top" bsDatepicker
+                [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY',isAnimated: true, containerClass: 'theme-dark-blue' }"
+                class="form-control" formControlName="fechaNacimiento">
+            <div *ngIf="this.pacienteForm.get('fechaNacimiento').errors && pacienteForm.get('fechaNacimiento').dirty">
+                <p *ngIf="this.pacienteForm.get('fechaNacimiento').hasError('required')">{{mensajeRequerido}}</p>
+            </div>
+        </div>
+    </div>
+    <hr /> 
+    <button type="submit" class="btn btn-primary" style="margin-left: 30rem;"
+        [disabled]="pacienteForm.invalid" (click)="guardarDatos()">Registrarse</button>
+</div>
