@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Paciente } from 'src/app/models/Paciente'
 import Swal from 'sweetalert2';
+import * as moment from 'moment'
 import { PacienteService} from '../../../../services/paciente.service'
 
 @Component({
@@ -13,7 +14,7 @@ import { PacienteService} from '../../../../services/paciente.service'
 })
 export class RegistroPacienteComponent implements OnInit{
     
-    formulario: FormGroup;
+    public formulario: FormGroup;
     pacienteForm: FormGroup;
 
     eventsSubject: Subject<void> = new Subject<void>();
@@ -27,24 +28,25 @@ export class RegistroPacienteComponent implements OnInit{
         this.rellenarFormulario();
     }
 
-    guardarDatos() {var paciente = this.obtenerPaciente();console.log(paciente)
+    guardarDatos() {
+        this.eventsSubject.next();
         if (this.formulario.valid && this.pacienteForm.valid) {
-            var paciente = this.obtenerPaciente();console.log(paciente)
-            /*this.pacienteService.registrarPaciente(paciente).subscribe(
+            var paciente = this.obtenerPaciente();
+            this.pacienteService.registrarPaciente(paciente).subscribe(
                 (resp: any) => {
-                    if(resp.estado){
+                    //if(resp.estado){
                         this.redirigirLogin(resp);
-                    }else{
+                    /*}else{
                         Swal.fire(resp.titulo,resp.mensaje,resp.tipo);
-                    }
+                    }*/
                 }
-            )*/
+            )
         }else{
             Swal.fire('¡INFO!','Complete los campos obligatorios para continuar','info');
         }
     }
 
-    guardarForm(event){ 
+    guardarForm(event: FormGroup) { 
     this.formulario = event;
     }
 
@@ -56,16 +58,22 @@ export class RegistroPacienteComponent implements OnInit{
 
     obtenerPaciente() {
         var paciente: Paciente = {
-            fechaNacimiento: this.pacienteForm.get('fechaNacimiento').value,
+            fechaNacimiento: moment(this.pacienteForm.get('fechaNacimiento').value).format('YYYY/MM/DD'),
             persona: {
                 email: this.formulario.get('email').value,
                 password: this.formulario.get('password').value,
                 dni: this.formulario.get('dni').value,
-                nombreCompleto: this.formulario.get('nombres').value + " " + this.formulario.get('apellidos').value
+                nombre: this.formulario.get('nombres').value, 
+                apellidos: this.formulario.get('apellidos').value,
+                tipoUsuario: 'PACIENTE',
+                role: {
+                    id: 3
+                }
             }
         }
         return paciente;
     }
+
 
     private redirigirLogin(resp:any){
     Swal.fire({
@@ -74,10 +82,10 @@ export class RegistroPacienteComponent implements OnInit{
       icon: resp.tipo,
       showCancelButton: false,
       confirmButtonColor: '#3085d6',
-      confirmButtonText: 'Ir al login'
+      confirmButtonText: 'Ir al home'
     }).then((result) => {
       if (result.value) {
-        this.route.navigate(['/inicio/login']);
+        this.route.navigate(['/']);
       }
     })
   }

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import * as moment from 'moment'
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
@@ -25,19 +24,14 @@ export class FormComponent implements OnInit {
   focus2Touched;
   focus3Touched;
   focus4Touched;
-  private eventsSubscription: Subscription;
 
   constructor(public fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.rellenarFormulario();
-    this.eventsSubscription = this.events.subscribe(() => {
+    this.events.subscribe(() => {
       this.enviarForm.emit(this.formulario);
     });
-  }
-
-  guardarDatos() {
-    //console.log(typeof moment(this.formulario.value.fechaNacimiento).format('YYYY/MM/DD'));
   }
 
   rellenarFormulario() {
